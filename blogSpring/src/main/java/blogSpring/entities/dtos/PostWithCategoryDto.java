@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostWithCategoryDto {
+public class PostWithCategoryDto { // Inactive Class
 	
 	private int id;
 	
