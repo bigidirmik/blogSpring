@@ -1,7 +1,5 @@
 package blogSpring.business.abstracts;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import blogSpring.core.utilities.results.DataResult;
 import blogSpring.core.utilities.results.Result;
 import blogSpring.entities.concretes.Image;
