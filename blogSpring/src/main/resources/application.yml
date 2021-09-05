@@ -1,0 +1,5 @@
+spring:
+  datasource:
+    url: ${postgres://uptsrgpzaoxase:67e2648f00ec425f8f4b17a4104d200174108574fdaa6c686a1fa8b7dba02e14@ec2-54-155-61-133.eu-west-1.compute.amazonaws.com:5432/dbc0bjo3e92k82}
+    username: ${uptsrgpzaoxase}
+    password: ${67e2648f00ec425f8f4b17a4104d200174108574fdaa6c686a1fa8b7dba02e14}
