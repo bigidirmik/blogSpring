@@ -43,9 +43,13 @@ public class User {
 	@Column(name = "password")
 	private int password;
 	
+	@NotBlank
+	@NotNull
 	@Column(name = "first_name")
 	private String firstName;
 	
+	@NotBlank
+	@NotNull
 	@Column(name = "last_name")
 	private String lastName;
 	

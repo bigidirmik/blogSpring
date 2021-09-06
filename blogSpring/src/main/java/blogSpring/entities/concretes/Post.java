@@ -48,7 +48,7 @@ public class Post {
 	private LocalDate createDate = LocalDate.now();
 	
 	@Column(name = "is_active")
-	private boolean isActive;
+	private boolean isActive; // default value : false
 	
 	
 	// ORM
