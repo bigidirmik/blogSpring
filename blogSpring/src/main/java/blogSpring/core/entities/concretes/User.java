@@ -33,8 +33,8 @@ public class User {
 	private int id;
 	
 	@Email
-	@NotBlank // boş olamaz : "" (veri var ancak boş)
-	@NotNull  // (veri yok) olamaz
+	@NotBlank
+	@NotNull
 	@Column(name = "email")
 	private String email;
 	
