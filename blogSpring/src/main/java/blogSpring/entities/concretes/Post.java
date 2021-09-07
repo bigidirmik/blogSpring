@@ -41,8 +41,8 @@ public class Post {
 	
 	@NotBlank
 	@NotNull
-	@Column(name = "content")
-	private TextArea content;
+	@Column(name = "content", columnDefinition = "TEXT" )
+	private String content;
 	
 	
 	@Column(name = "create_date")
