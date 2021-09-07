@@ -58,8 +58,10 @@ public class PostManager implements PostService {
 
 	@Override
 	public Result deleteById(int id) {
-//		Image image = this.imageDao.getByPost_Id(id);
-//		imageDao.deleteById(image.getId());
+		Image image = this.imageDao.getByPost_Id(id);
+		if (image!=null) {
+			imageDao.deleteById(image.getId());
+		}
 		this.postDao.deleteById(id);
 		return new SuccessResult(Messages.deleted);
 	}
