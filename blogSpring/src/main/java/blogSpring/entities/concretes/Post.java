@@ -1,5 +1,6 @@
 package blogSpring.entities.concretes;
 
+import java.awt.TextArea;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -41,7 +42,7 @@ public class Post {
 	@NotBlank
 	@NotNull
 	@Column(name = "content")
-	private String content;
+	private TextArea content;
 	
 	
 	@Column(name = "create_date")
