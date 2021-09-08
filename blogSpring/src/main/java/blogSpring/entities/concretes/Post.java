@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -40,6 +41,7 @@ public class Post {
 	
 	@NotBlank
 	@NotNull
+	@Lob
 	@Column(name = "content")
 	private String content;
 	
