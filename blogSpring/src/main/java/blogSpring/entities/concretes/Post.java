@@ -41,7 +41,7 @@ public class Post {
 	
 	@NotBlank
 	@NotNull
-	@Column(name = "content", columnDefinition = "TEXT" )
+	@Column(name = "content",length = 30000 )
 	private String content;
 	
 	
