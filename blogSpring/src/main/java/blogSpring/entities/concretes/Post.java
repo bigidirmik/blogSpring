@@ -1,6 +1,5 @@
 package blogSpring.entities.concretes;
 
-import java.awt.TextArea;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
