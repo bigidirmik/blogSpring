@@ -42,7 +42,7 @@ public class Post {
 	@NotBlank
 	@NotNull
 	@Lob
-	@Column(name = "content")
+	@Column(name = "content",columnDefinition = "CLOB")
 	private String content;
 	
 	
