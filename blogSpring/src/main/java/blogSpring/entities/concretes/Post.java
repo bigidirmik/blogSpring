@@ -40,7 +40,7 @@ public class Post {
 	
 	@NotBlank
 	@NotNull
-	@Column(name = "content",length = 30000 )
+	@Column(name = "content")
 	private String content;
 	
 	
