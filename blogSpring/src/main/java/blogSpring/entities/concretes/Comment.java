@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
@@ -42,8 +41,7 @@ public class Comment {
 	
 	@NotBlank
 	@NotNull
-	@Column(name = "content", columnDefinition="TEXT", length = 25000)
-	@Lob
+	@Column(name = "content")
 	private String content;
 	
 	//ORM
