@@ -1,8 +1,5 @@
 package blogSpring.entities.concretes;
 
-import java.time.LocalDate;
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,15 +7,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import blogSpring.core.entities.concretes.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,9 +22,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "posts")
-public class Post {
+@Table(name = "comments")
+public class Comment {
 	
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -37,37 +33,22 @@ public class Post {
 	
 	@NotBlank
 	@NotNull
-	@Column(name = "title")
-	private String title;
+	@Column(name = "nick")
+	private String nick;
+	
+	@Email
+	private String email;
 	
 	@NotBlank
 	@NotNull
 	@Column(name = "content")
 	private String content;
 	
-	
-	@Column(name = "create_date")
-	private LocalDate createDate = LocalDate.now();
-	
-	@Column(name = "is_active")
-	private boolean isActive; // default value : false
-	
-	
-	// ORM
-	
-	@ManyToOne()
-	@JoinColumn(name = "user_id")
-	private User user;
+	//ORM
 	
 	@JsonIgnore
 	@ManyToOne()
-	@JoinColumn(name = "category_id")
-	private Category category;
-	
-	@OneToOne(mappedBy = "post")
-	private Image image;
-	
-	@OneToMany(mappedBy = "post")
-	private List<Comment> comments;
-	
+	@JoinColumn(name = "post_id")
+	private Post post;
+
 }

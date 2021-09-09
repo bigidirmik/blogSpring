@@ -11,7 +11,6 @@ public interface PostService {
 	
 	Result add(int categoryId,Post post);
 	Result update(int id,String title,String content);
-	Result deleteById(int id);
 	
 	Result setActivity(int postId, boolean status);
 	
@@ -22,6 +21,8 @@ public interface PostService {
 	
 	
 	// Custom JPA
+	
+	Result deleteById(int id);
 	
 	DataResult<Post> findById(int id);
 	
