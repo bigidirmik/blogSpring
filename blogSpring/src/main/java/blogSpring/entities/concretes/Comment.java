@@ -37,12 +37,13 @@ public class Comment {
 	private String nick;
 	
 	@Email
+	@Column(name = "email")
 	private String email;
 	
 	@NotBlank
 	@NotNull
-	@Column(name = "body")
-	private String body;
+	@Column(name = "content")
+	private String content;
 	
 	//ORM
 	

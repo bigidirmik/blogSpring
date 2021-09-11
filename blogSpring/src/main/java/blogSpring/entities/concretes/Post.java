@@ -42,8 +42,8 @@ public class Post {
 	
 	@NotBlank
 	@NotNull
-	@Column(name = "body")
-	private String body;
+	@Column(name = "content")
+	private String content;
 	
 	
 	@Column(name = "create_date")
