@@ -10,7 +10,7 @@ import blogSpring.entities.concretes.Post;
 public interface PostService {
 	
 	Result add(int categoryId,Post post);
-	Result update(int id,String title,String content);
+	Result update(int id,String title,String body);
 	
 	Result setActivity(int postId, boolean status);
 	

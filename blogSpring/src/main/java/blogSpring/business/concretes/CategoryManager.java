@@ -75,11 +75,6 @@ public class CategoryManager implements CategoryService {
 		return new SuccessResult(Messages.deleted);
 	}
 
-//	@Override
-//	public DataResult<Category> getById(int id) {
-//		return new SuccessDataResult<Category>(this.categoryDao.getById(id),Messages.found);
-//	}
-
 	@Override
 	public DataResult<List<Category>> getAll() {
 		return new SuccessDataResult<List<Category>>(this.categoryDao.findAll(), Messages.listed);

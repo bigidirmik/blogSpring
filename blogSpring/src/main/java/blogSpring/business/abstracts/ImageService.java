@@ -10,10 +10,6 @@ public interface ImageService {
 	
 	Result update(int postId, String url);
 	
-//	Result add(Image image, MultipartFile imageFile);
-//	
-//	Result update(Image image, MultipartFile imageFile);
-	
 	// Custom JPA
 	
 	Result deleteById(int imageId);

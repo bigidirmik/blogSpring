@@ -47,8 +47,8 @@ public class PostsController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<?> update(@RequestParam(name = "id") int id,@RequestParam(name = "title") String title,@RequestParam(name = "content") String content) {
-		return ResponseEntity.ok(this.postService.update(id,title,content));
+	public ResponseEntity<?> update(@RequestParam(name = "id") int id,@RequestParam(name = "title") String title,@RequestParam(name = "body") String body) {
+		return ResponseEntity.ok(this.postService.update(id,title,body));
 	}
 
 	@DeleteMapping("/deleteById")

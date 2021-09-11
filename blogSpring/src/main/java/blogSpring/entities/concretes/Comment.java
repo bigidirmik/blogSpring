@@ -41,8 +41,8 @@ public class Comment {
 	
 	@NotBlank
 	@NotNull
-	@Column(name = "content")
-	private String content;
+	@Column(name = "body")
+	private String body;
 	
 	//ORM
 	

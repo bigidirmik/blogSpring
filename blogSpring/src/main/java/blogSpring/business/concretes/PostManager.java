@@ -52,10 +52,10 @@ public class PostManager implements PostService {
 	}
 
 	@Override
-	public Result update(int id, String title, String content) {
+	public Result update(int id, String title, String body) {
 		Post post = this.findById(id).getData();
 		post.setTitle(title);
-		post.setContent(content);
+		post.setBody(body);
 		this.postDao.save(post);
 		return new SuccessResult(Messages.updated);
 	}
