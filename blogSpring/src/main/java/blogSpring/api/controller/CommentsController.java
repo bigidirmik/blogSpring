@@ -16,7 +16,6 @@ import blogSpring.core.utilities.results.DataResult;
 import blogSpring.core.utilities.results.Result;
 import blogSpring.entities.concretes.Comment;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/comments")
