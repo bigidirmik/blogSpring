@@ -25,7 +25,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "comments")
 public class Comment {
 	
-	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
