@@ -45,10 +45,5 @@ public class Comment {
 	private String content;
 	
 	//ORM
-	
-	@JsonIgnore
-	@ManyToOne()
-	@JoinColumn(name = "post_id")
-	private Post post;
 
 }
