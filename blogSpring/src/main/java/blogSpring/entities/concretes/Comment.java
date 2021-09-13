@@ -36,6 +36,8 @@ public class Comment {
 	private String nick;
 	
 	@Email
+	@NotBlank
+	@NotNull
 	@Column(name = "email")
 	private String email;
 	
