@@ -20,7 +20,6 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api/comments")
-@RequiredArgsConstructor
 @CrossOrigin
 public class CommentsController {
 
