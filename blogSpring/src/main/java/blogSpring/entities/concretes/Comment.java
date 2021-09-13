@@ -45,5 +45,7 @@ public class Comment {
 	private String content;
 	
 	//ORM
+	
+	private Post post;
 
 }
