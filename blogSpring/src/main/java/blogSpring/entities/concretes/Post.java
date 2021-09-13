@@ -67,6 +67,7 @@ public class Post {
 	@OneToOne(mappedBy = "post")
 	private Image image;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "post")
 	private List<Comment> comments;
 	
