@@ -46,6 +46,7 @@ public class Comment {
 	
 	//ORM
 	
+	@JsonIgnore
 	@ManyToOne()
 	@JoinColumn(name = "post_id")
 	private Post post;
