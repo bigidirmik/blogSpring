@@ -12,6 +12,7 @@ import blogSpring.core.utilities.results.Result;
 import blogSpring.core.utilities.results.SuccessDataResult;
 import blogSpring.core.utilities.results.SuccessResult;
 import blogSpring.dataAccess.abstracts.CommentDao;
+import blogSpring.dataAccess.abstracts.PostDao;
 import blogSpring.entities.concretes.Comment;
 import blogSpring.entities.concretes.Post;
 
@@ -19,16 +20,18 @@ import blogSpring.entities.concretes.Post;
 public class CommentManager implements CommentService {
 
 	private CommentDao commentDao;
+	private PostDao postDao;
 
 	@Autowired
-	public CommentManager(CommentDao commentDao) {
+	public CommentManager(CommentDao commentDao,PostDao postDao) {
 		super();
 		this.commentDao = commentDao;
+		this.postDao = postDao;
 	}
 
 	@Override
 	public Result add(int postId, Comment comment) {
-		Post post = new Post();
+		Post post = this.postDao.findById(postId);
 		post.setId(postId);
 		comment.setPost(post);
 		this.commentDao.save(comment);

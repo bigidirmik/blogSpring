@@ -31,7 +31,7 @@ public class CommentsController {
 	}
 
 	@PostMapping("/add")
-	public Result add(@RequestParam(name = "postId") int postId, Comment comment) {
+	public Result add(@RequestParam(name = "postId") int postId, @RequestBody Comment comment) {
 		return this.commentService.add(postId, comment);
 	}
 
