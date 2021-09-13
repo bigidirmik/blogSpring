@@ -15,7 +15,6 @@ import blogSpring.business.abstracts.CommentService;
 import blogSpring.core.utilities.results.DataResult;
 import blogSpring.core.utilities.results.Result;
 import blogSpring.entities.concretes.Comment;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/api/comments")
@@ -31,8 +30,8 @@ public class CommentsController {
 	}
 
 	@PostMapping("/add")
-	public Result add(@RequestParam(name = "postId") int postId, Comment comment) {
-		return this.commentService.add(postId, comment);
+	public Result add(@RequestParam(name = "postId") int postId,@RequestParam(name = "nick") String nick,@RequestParam(name = "email") String email,@RequestParam(name = "content") String content) {
+		return this.commentService.add(postId, nick, email, content);
 	}
 
 	@GetMapping("/getAll")

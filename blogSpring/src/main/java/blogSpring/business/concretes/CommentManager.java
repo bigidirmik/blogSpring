@@ -30,10 +30,13 @@ public class CommentManager implements CommentService {
 	}
 
 	@Override
-	public Result add(int postId, Comment comment) {
+	public Result add(int postId, String nick, String email, String content) {
 		Post post = this.postDao.findById(postId);
-		post.setId(postId);
+		Comment comment = new Comment();
 		comment.setPost(post);
+		comment.setNick(nick);
+		comment.setEmail(email);
+		comment.setContent(content);
 		this.commentDao.save(comment);
 		return new SuccessResult(Messages.added);
 	}
