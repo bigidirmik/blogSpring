@@ -12,8 +12,8 @@ public interface CategoryDao extends JpaRepository<Category, Integer> {
 	
 	List<Category> getByIsActive(boolean isActive);
 	
-	Category deleteById(int id);
+	Category deleteById(int categoryId);
 	
-	Category findById(int id);
+	Category findById(int categoryId);
 
 }

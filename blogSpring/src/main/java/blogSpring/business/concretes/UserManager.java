@@ -37,15 +37,11 @@ public class UserManager implements UserService {
 		return new SuccessResult(Messages.updated);
 	}
 
+	// Eklenecek adım!!! : Bir User silindiğinde, o User'a ait post listesi getirilerek foreach döngüsü ile yeni bir user'a atanmalı!
 	@Override
 	public Result delete(User user) {
 		this.userDao.delete(user);
 		return new SuccessResult(Messages.deleted);
-	}
-
-	@Override
-	public DataResult<User> getById(int id) {
-		return new SuccessDataResult<User>(this.userDao.getById(id),Messages.found);
 	}
 
 	@Override
@@ -55,6 +51,11 @@ public class UserManager implements UserService {
 	
 	
 	// Custom JPA
+	
+	@Override
+	public DataResult<User> findById(int userId) {
+		return new SuccessDataResult<User>(this.userDao.findById(userId),Messages.found);
+	}
 
 	@Override
 	public DataResult<User> getByEmail(String email) {

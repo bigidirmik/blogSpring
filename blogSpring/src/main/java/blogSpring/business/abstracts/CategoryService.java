@@ -9,12 +9,11 @@ import blogSpring.entities.concretes.Category;
 public interface CategoryService {
 
 	Result add(Category category);
-	Result update(int id,String categoryName);
-	Result deleteById(int id);
+	Result update(int categoryId,String categoryName);
+	Result deleteById(int categoryId);
 	
 	Result setActivity(int categoryId, boolean status);
 	
-//	DataResult<Category> getById(int id);
 	DataResult<List<Category>> getAll();
 	
 	
@@ -24,6 +23,6 @@ public interface CategoryService {
 	
 	DataResult<List<Category>> getByCategoryName(String categoryName);
 	
-	DataResult<Category> findById(int id);
+	DataResult<Category> findById(int categoryId);
 	
 }

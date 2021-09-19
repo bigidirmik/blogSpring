@@ -11,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -40,12 +39,6 @@ public class Post {
 	@Column(name = "title")
 	private String title;
 	
-	@NotBlank
-	@NotNull
-	@Column(name = "content")
-	private String content;
-	
-	
 	@Column(name = "create_date")
 	private LocalDate createDate = LocalDate.now();
 	
@@ -64,8 +57,11 @@ public class Post {
 	@JoinColumn(name = "category_id")
 	private Category category;
 	
-	@OneToOne(mappedBy = "post")
-	private Image image;
+	@OneToMany(mappedBy = "post")
+	private List<Image> images;
+	
+	@OneToMany(mappedBy = "post")
+	private List<Paragraph> paragraphs;
 	
 	@OneToMany(mappedBy = "post")
 	private List<Comment> comments;

@@ -1,5 +1,7 @@
 package blogSpring.business.concretes;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,14 +21,12 @@ public class ImageManager implements ImageService {
 	
 	private ImageDao imageDao;
 	private PostDao postDao;
-//	private CloudinaryService cloudinaryService;
 	
 	@Autowired
 	public ImageManager(ImageDao imageDao,PostDao postDao) {
 		super();
 		this.imageDao = imageDao;
 		this.postDao = postDao;
-//		this.cloudinaryService = cloudinaryService;
 	}
 	
 	@Override
@@ -40,32 +40,19 @@ public class ImageManager implements ImageService {
 	}
 	
 	@Override
-	public Result update(int postId, String url) {
-		Image image = this.getByPostId(postId).getData();
+	public Result update(int imageId, String url) {
+		Image image = this.imageDao.findById(imageId);
 		image.setUrl(url);
 		this.imageDao.save(image);
 		return new SuccessResult(Messages.updated);
 	}
-
-//	@Override
-//	public Result add(Image image, MultipartFile imageFile) {
-//		@SuppressWarnings("unchecked")
-//		Map<String,String> uploadImage = this.cloudinaryService.upload(imageFile).getData();
-//		image.setUrl(uploadImage.get("url"));
-//		this.imageDao.save(image);
-//		return new SuccessResult(Messages.added);
-//	}
-//
-//	@Override
-//	public Result update(Image image, MultipartFile imageFile) {
-//		@SuppressWarnings("unchecked")
-//		Map<String,String> uploadImage = this.cloudinaryService.upload(imageFile).getData();
-//		image.setUrl(uploadImage.get("url"));
-//		this.imageDao.save(image);
-//		return new SuccessResult(Messages.updated);
-//	}
 	
 	// Custom JPA
+	
+	@Override
+	public DataResult<Image> findById(int imageId) {
+		return new SuccessDataResult<Image>(this.imageDao.findById(imageId),Messages.found);
+	}
 
 	@Override
 	public Result deleteById(int imageId) {
@@ -74,8 +61,8 @@ public class ImageManager implements ImageService {
 	}
 
 	@Override
-	public DataResult<Image> getByPostId(int postId) {
-		return new SuccessDataResult<Image>(this.imageDao.getByPost_Id(postId),Messages.found);
+	public DataResult<List<Image>> getByPostId(int postId) {
+		return new SuccessDataResult<List<Image>>(this.imageDao.getByPost_Id(postId),Messages.found);
 	}
 
 }

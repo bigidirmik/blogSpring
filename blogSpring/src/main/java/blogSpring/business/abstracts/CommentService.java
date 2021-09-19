@@ -10,7 +10,7 @@ public interface CommentService {
 	
 	Result add(int postId, String nick, String email, String content);
 	
-	DataResult<List<Comment>> getAll();
+	DataResult<List<Comment>> getAll(); // ileride tüm yorumları tek sayfada kontrol etmek için!
 	
 	//Custom JPA
 	

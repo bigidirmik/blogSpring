@@ -9,6 +9,8 @@ import blogSpring.core.entities.concretes.User;
 
 public interface UserDao extends JpaRepository<User, Integer> {
 	
+	User findById(int userId);
+	
 	User getByEmail(String email);
 	List<User> getByFirstName(String firstName);
 	List<User> getByLastName(String lastName);

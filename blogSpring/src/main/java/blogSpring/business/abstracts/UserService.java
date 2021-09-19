@@ -11,12 +11,13 @@ public interface UserService {
 	Result add(User user);
 	Result update(User user);
 	Result delete(User user);
-	
-	DataResult<User> getById(int id);
+
 	DataResult<List<User>> getAll();
 	
 	
 	// Custom JPA
+	
+	DataResult<User> findById(int userId);
 	
 	DataResult<User> getByEmail(String email);
 	DataResult<List<User>> getByFirstName(String firstName);

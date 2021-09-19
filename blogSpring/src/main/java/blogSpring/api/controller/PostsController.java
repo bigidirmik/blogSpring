@@ -34,7 +34,7 @@ import blogSpring.entities.concretes.Post;
 public class PostsController {
 
 	private PostService postService;
-	
+
 	@Autowired
 	public PostsController(PostService postService) {
 		super();
@@ -42,20 +42,21 @@ public class PostsController {
 	}
 
 	@PostMapping("/add")
-	public ResponseEntity<?> add(@RequestParam(name = "categoryId") int categoryId,@RequestBody Post post) {
-		return ResponseEntity.ok(this.postService.add(categoryId,post));
+	public ResponseEntity<?> add(@RequestParam(name = "userId") int userId,
+			@RequestParam(name = "categoryId") int categoryId, @RequestBody Post post) {
+		return ResponseEntity.ok(this.postService.add(userId, categoryId, post));
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<?> update(@RequestParam(name = "id") int id,@RequestParam(name = "title") String title,@RequestParam(name = "content") String content) {
-		return ResponseEntity.ok(this.postService.update(id,title,content));
+	public ResponseEntity<?> update(@RequestParam(name = "postId") int postId, @RequestParam(name = "title") String title) {
+		return ResponseEntity.ok(this.postService.update(postId, title));
 	}
 
 	@DeleteMapping("/deleteById")
-	public ResponseEntity<?> deleteById(@RequestParam(name = "id") int id) {
-		return ResponseEntity.ok(this.postService.deleteById(id));
+	public ResponseEntity<?> deleteById(@RequestParam(name = "postId") int postId) {
+		return ResponseEntity.ok(this.postService.deleteById(postId));
 	}
-	
+
 	@PutMapping("/setActivity")
 	public Result setActivity(@RequestParam("postId") int postId, @RequestParam("status") boolean status) {
 		return this.postService.setActivity(postId, status);
@@ -84,25 +85,25 @@ public class PostsController {
 
 	// Custom JPA
 	@GetMapping("/findById")
-	public DataResult<Post> findById(@RequestParam(name = "id") int id) {
-		return this.postService.findById(id);
+	public DataResult<Post> findById(@RequestParam(name = "postId") int postId) {
+		return this.postService.findById(postId);
 	}
-	
+
 	@GetMapping("/getByIsActive")
-	public DataResult<List<Post>> getByIsActive(boolean status){
+	public DataResult<List<Post>> getByIsActive(boolean status) {
 		return this.postService.getByIsActive(status);
 	}
-	
+
 	@GetMapping("/getByCategoryId")
 	public DataResult<List<Post>> getByCategoryId(@RequestParam(name = "categoryId") int categoryId) {
 		return this.postService.getByCategoryId(categoryId);
 	}
-	
+
 	@GetMapping("/getByUserId")
 	public DataResult<List<Post>> getByUserId(@RequestParam(name = "userId") int userId) {
 		return this.postService.getByUserId(userId);
 	}
-	
+
 	@GetMapping("/getByTitle")
 	public DataResult<List<Post>> getByTitle(@RequestParam(name = "title") String title) {
 		return this.postService.getByTitle(title);
@@ -112,14 +113,16 @@ public class PostsController {
 	public DataResult<List<Post>> getByCreateDate(@RequestParam(name = "createDate") Date createDate) {
 		return this.postService.getByCreateDate(createDate);
 	}
-	
+
 	@GetMapping("/getByCategoryIdAndIsActive")
-	public DataResult<List<Post>> getByCategoryIdAndIsActive(@RequestParam(name = "categoryId") int categoryId,@RequestParam(name = "status") boolean status){
+	public DataResult<List<Post>> getByCategoryIdAndIsActive(@RequestParam(name = "categoryId") int categoryId,
+			@RequestParam(name = "status") boolean status) {
 		return this.postService.getByCategoryIdAndIsActive(categoryId, status);
 	}
-	
+
 	@GetMapping("/getByUserIdAndIsActive")
-	public DataResult<List<Post>> getByUserIdAndIsActive(@RequestParam(name = "userId") int userId,@RequestParam(name = "status") boolean status){
+	public DataResult<List<Post>> getByUserIdAndIsActive(@RequestParam(name = "userId") int userId,
+			@RequestParam(name = "status") boolean status) {
 		return this.postService.getByUserIdAndIsActive(userId, status);
 	}
 
@@ -154,17 +157,6 @@ public class PostsController {
 	public DataResult<List<Post>> getByCreateDateContains(@RequestParam(name = "createYear") Date createYear) {
 		return this.postService.getByCreateDateContains(createYear);
 	}
-
-//	@GetMapping("/getByUserId")
-//	public DataResult<List<Post>> getByUserId(@RequestParam(name = "userId") int userId){
-//		return this.postService.getByUserId(userId);
-//	}
-
-	// DTO JQPL
-//	@GetMapping("/getPostWithCategoryDetails")
-//	public DataResult<List<PostWithCategoryDto>> getPostWithCategoryDetails() {
-//		return this.postService.getPostWithCategoryDetails();
-//	}
 
 	// Global Ex. Handler (AOP)
 	@ExceptionHandler(MethodArgumentNotValidException.class)

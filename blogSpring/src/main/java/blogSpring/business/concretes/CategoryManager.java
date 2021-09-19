@@ -14,10 +14,12 @@ import blogSpring.core.utilities.results.SuccessResult;
 import blogSpring.dataAccess.abstracts.CategoryDao;
 import blogSpring.dataAccess.abstracts.CommentDao;
 import blogSpring.dataAccess.abstracts.ImageDao;
+import blogSpring.dataAccess.abstracts.ParagraphDao;
 import blogSpring.dataAccess.abstracts.PostDao;
 import blogSpring.entities.concretes.Category;
 import blogSpring.entities.concretes.Comment;
 import blogSpring.entities.concretes.Image;
+import blogSpring.entities.concretes.Paragraph;
 import blogSpring.entities.concretes.Post;
 
 @Service
@@ -26,14 +28,16 @@ public class CategoryManager implements CategoryService {
 	private CategoryDao categoryDao;
 	private PostDao postDao;
 	private ImageDao imageDao;
+	private ParagraphDao paragraphDao;
 	private CommentDao commentDao;
 
 	@Autowired
-	public CategoryManager(CategoryDao categoryDao, PostDao postDao, ImageDao imageDao, CommentDao commentDao) {
+	public CategoryManager(CategoryDao categoryDao, PostDao postDao, ImageDao imageDao, ParagraphDao paragraphDao,CommentDao commentDao) {
 		super();
 		this.categoryDao = categoryDao;
 		this.postDao = postDao;
 		this.imageDao = imageDao;
+		this.paragraphDao = paragraphDao;
 		this.commentDao = commentDao;
 	}
 
@@ -52,26 +56,21 @@ public class CategoryManager implements CategoryService {
 	}
 
 	@Override
-	public Result deleteById(int id) {
+	public Result deleteById(int categoryId) {
 		// posts delete
-		List<Post> posts = this.postDao.getByCategory_Id(id);
-		for (Post post : posts) {
-			// image of post delete
-			Image image = this.imageDao.getByPost_Id(post.getId());
-			if (image != null) {
-				this.imageDao.deleteById(image.getId());
-			}
-			// comments of post delete
-			List<Comment> comments = this.commentDao.getByPost_Id(id);
-			if (comments != null) {
-				for (Comment comment : comments) {
-					this.commentDao.deleteById(comment.getId());
+		List<Post> posts = this.postDao.getByCategory_Id(categoryId);
+		if(posts != null) {
+			for (Post post : posts) {
+				// post content delete
+				Result result = this.postContentDelete(post.getId());
+				// post delete
+				if(result.isSuccess()) {
+					this.postDao.deleteById(post.getId());
 				}
 			}
-			this.postDao.deleteById(post.getId());
 		}
 		// category delete
-		this.categoryDao.deleteById(id);
+		this.categoryDao.deleteById(categoryId);
 		return new SuccessResult(Messages.deleted);
 	}
 
@@ -93,8 +92,8 @@ public class CategoryManager implements CategoryService {
 	}
 
 	@Override
-	public DataResult<Category> findById(int id) {
-		return new SuccessDataResult<Category>(this.categoryDao.findById(id), Messages.found);
+	public DataResult<Category> findById(int categoryId) {
+		return new SuccessDataResult<Category>(this.categoryDao.findById(categoryId), Messages.found);
 	}
 
 	// business codes
@@ -105,6 +104,31 @@ public class CategoryManager implements CategoryService {
 		category.setActive(status);
 		this.categoryDao.save(category);
 		return new SuccessResult("Active : " + status);
+	}
+	
+	private Result postContentDelete(int postId) {
+		// images delete
+		List<Image> images = this.imageDao.getByPost_Id(postId);
+		if (images != null) {
+			for (Image image : images) {
+				this.imageDao.deleteById(image.getId());
+			}
+		}
+		// paragraphs delete
+		List<Paragraph> paragraphs = this.paragraphDao.getByPost_Id(postId);
+		if (paragraphs != null) {
+			for (Paragraph paragraph : paragraphs) {
+				this.paragraphDao.deleteById(paragraph.getId());
+			}
+		}
+		// comments delete
+		List<Comment> comments = this.commentDao.getByPost_Id(postId);
+		if (comments != null) {
+			for (Comment comment : comments) {
+				this.commentDao.deleteById(comment.getId());
+			}
+		}
+		return new SuccessResult("Post content : " + Messages.deleted);
 	}
 
 }

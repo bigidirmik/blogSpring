@@ -8,7 +8,7 @@ import blogSpring.entities.concretes.Comment;
 
 public interface CommentDao extends JpaRepository<Comment, Integer> {
 	
-	Comment deleteById(int id);
+	Comment deleteById(int commentId);
 	
 	List<Comment> getByPost_Id(int postId);
 

@@ -12,8 +12,8 @@ public interface PostDao extends JpaRepository<Post, Integer> {
 	List<Post> getByCategory_Id(int categoryId);
 	List<Post> getByUser_Id(int userId);
 	
-	Post deleteById(int id);
-	Post findById(int id);
+	Post deleteById(int postId);
+	Post findById(int postId);
 	
 	List<Post> getByTitle(String title);
 	List<Post> getByCreateDate(Date createDate);
@@ -29,13 +29,5 @@ public interface PostDao extends JpaRepository<Post, Integer> {
 	
 	List<Post> getByTitleContains(String title); //Contains
 	List<Post> getByCreateDateContains(Date createYear); //Contains
-	
-	//List<Post> getByUser_Id(int userId);
-	
-	// DTO JPQL
-//	@Query("Select blogSpring.entities.dtos.PostWithCategoryDto"
-//			+ "(p.id, p.title, p.content, p.createDate, c.categoryName)"
-//			+ "From Category c Inner Join c.posts p")
-//	List<PostWithCategoryDto> getPostWithCategoryDetails();
 
 }

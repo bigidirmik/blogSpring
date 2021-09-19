@@ -10,73 +10,75 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import blogSpring.business.abstracts.PostService;
+import blogSpring.core.dataAccess.abstracts.UserDao;
 import blogSpring.core.entities.concretes.User;
 import blogSpring.core.utilities.constants.Messages;
 import blogSpring.core.utilities.results.DataResult;
+import blogSpring.core.utilities.results.ErrorResult;
 import blogSpring.core.utilities.results.Result;
 import blogSpring.core.utilities.results.SuccessDataResult;
 import blogSpring.core.utilities.results.SuccessResult;
+import blogSpring.dataAccess.abstracts.CategoryDao;
 import blogSpring.dataAccess.abstracts.CommentDao;
 import blogSpring.dataAccess.abstracts.ImageDao;
+import blogSpring.dataAccess.abstracts.ParagraphDao;
 import blogSpring.dataAccess.abstracts.PostDao;
 import blogSpring.entities.concretes.Category;
 import blogSpring.entities.concretes.Comment;
 import blogSpring.entities.concretes.Image;
+import blogSpring.entities.concretes.Paragraph;
 import blogSpring.entities.concretes.Post;
 
 @Service
 public class PostManager implements PostService {
 
+	private UserDao userDao;
+	private CategoryDao categoryDao;
 	private PostDao postDao;
 	private ImageDao imageDao;
+	private ParagraphDao paragraphDao;
 	private CommentDao commentDao;
 
 	@Autowired
-	public PostManager(PostDao postDao, ImageDao imageDao, CommentDao commentDao) {
+	public PostManager(UserDao userDao, CategoryDao categoryDao, PostDao postDao, ImageDao imageDao,
+			ParagraphDao paragraphDao, CommentDao commentDao) {
 		super();
+		this.userDao = userDao;
+		this.categoryDao = categoryDao;
 		this.postDao = postDao;
 		this.imageDao = imageDao;
+		this.paragraphDao = paragraphDao;
 		this.commentDao = commentDao;
 	}
 
 	@Override
-	public Result add(int categoryId, Post post) {
-		Category category = new Category();
-		User user = new User();
-		category.setId(categoryId);
-		user.setId(1);
-		post.setCategory(category);
+	public Result add(int userId, int categoryId, Post post) {
+		User user = this.userDao.findById(userId);
+		Category category = this.categoryDao.findById(categoryId);
 		post.setUser(user);
+		post.setCategory(category);
 		this.postDao.save(post);
 		return new SuccessResult(Messages.added);
 	}
 
 	@Override
-	public Result update(int id, String title, String content) {
+	public Result update(int id, String title) {
 		Post post = this.findById(id).getData();
 		post.setTitle(title);
-		post.setContent(content);
 		this.postDao.save(post);
 		return new SuccessResult(Messages.updated);
 	}
 
 	@Override
-	public Result deleteById(int id) {
-		// image delete
-		Image image = this.imageDao.getByPost_Id(id);
-		if (image != null) {
-			imageDao.deleteById(image.getId());
-		}
-		// comments delete
-		List<Comment> comments = this.commentDao.getByPost_Id(id);
-		if (comments != null) {
-			for (Comment comment : comments) {
-				this.commentDao.deleteById(comment.getId());
-			}
-		}
+	public Result deleteById(int postId) {
+		// post content delete
+		Result result = this.postContentDelete(postId);
 		// post delete
-		this.postDao.deleteById(id);
-		return new SuccessResult(Messages.deleted);
+		if(result.isSuccess()) {
+			this.postDao.deleteById(postId);
+			return new SuccessResult(Messages.deleted);
+		}
+		return new ErrorResult(Messages.deleteFailed);
 	}
 
 	@Override
@@ -177,17 +179,6 @@ public class PostManager implements PostService {
 		return new SuccessDataResult<List<Post>>(this.postDao.getByCreateDateContains(createYear), Messages.listed);
 	}
 
-//	@Override
-//	public DataResult<List<Post>> getByUserId(int userId) {
-//		return new SuccessDataResult<List<Post>>(this.postDao.getByUser_Id(userId),Messages.listed);
-//	}
-
-	// DTO JQPL
-//	@Override
-//	public DataResult<List<PostWithCategoryDto>> getPostWithCategoryDetails() {
-//		return new SuccessDataResult<List<PostWithCategoryDto>>(this.postDao.getPostWithCategoryDetails(),Messages.listed);
-//	}
-
 	// business codes
 
 	@Override
@@ -196,5 +187,30 @@ public class PostManager implements PostService {
 		post.setActive(status);
 		this.postDao.save(post);
 		return new SuccessResult("Active : " + status);
+	}
+
+	private Result postContentDelete(int postId) {
+		// images delete
+		List<Image> images = this.imageDao.getByPost_Id(postId);
+		if (images != null) {
+			for (Image image : images) {
+				this.imageDao.deleteById(image.getId());
+			}
+		}
+		// paragraphs delete
+		List<Paragraph> paragraphs = this.paragraphDao.getByPost_Id(postId);
+		if (paragraphs != null) {
+			for (Paragraph paragraph : paragraphs) {
+				this.paragraphDao.deleteById(paragraph.getId());
+			}
+		}
+		// comments delete
+		List<Comment> comments = this.commentDao.getByPost_Id(postId);
+		if (comments != null) {
+			for (Comment comment : comments) {
+				this.commentDao.deleteById(comment.getId());
+			}
+		}
+		return new SuccessResult("Post content : " + Messages.deleted);
 	}
 }

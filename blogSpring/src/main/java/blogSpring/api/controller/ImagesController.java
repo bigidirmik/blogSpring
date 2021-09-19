@@ -1,5 +1,7 @@
 package blogSpring.api.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,27 +40,9 @@ public class ImagesController {
 	}
 	
 	@PutMapping("/update")
-	public Result update(@RequestParam(name = "postId") int postId, @RequestParam(name = "url") String url) {
-		return this.imageService.update(postId, url);
+	public Result update(@RequestParam(name = "imageId") int imageId, @RequestParam(name = "url") String url) {
+		return this.imageService.update(imageId, url);
 	}
-
-//    // , MultipartFile imageFile)throws NotFoundException{
-//	@PostMapping("/add")
-//	public Result add(@RequestParam(name = "postId") int postId,@RequestPart(name = "imageFile") MultipartFile imageFile){
-//		Post post = this.postService.findById(postId).getData();
-//		Image image = new Image();
-//		image.setPost(post);
-//		return this.imageService.add(image, imageFile);
-//	}
-//	
-//	// , MultipartFile imageFile)throws NotFoundException{
-//	@PutMapping("/update")
-//	public Result update(@RequestParam(name = "postId") int postId,@RequestPart(name = "imageFile") MultipartFile imageFile){
-//		Post post = this.postService.findById(postId).getData();
-//		Image image = new Image();
-//		image.setPost(post);
-//		return this.imageService.update(image, imageFile);
-//	}
 	
 	// Custom JPA
 
@@ -68,7 +52,7 @@ public class ImagesController {
 	}
 
 	@GetMapping("/getByPostId")
-	public DataResult<Image> getByPostId(@RequestParam(name = "postId") int postId) {
+	public DataResult<List<Image>> getByPostId(@RequestParam(name = "postId") int postId) {
 		return this.imageService.getByPostId(postId);
 	}
 	

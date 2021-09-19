@@ -56,9 +56,9 @@ public class UsersController {
 		return ResponseEntity.ok(this.userService.delete(user));
 	}
 
-	@GetMapping("/getById")
-	public DataResult<User> getById(@RequestParam(name = "id") int id) {
-		return this.userService.getById(id);
+	@GetMapping("/findById")
+	public DataResult<User> findById(@RequestParam(name = "userId") int userId) {
+		return this.userService.findById(userId);
 	}
 
 	@GetMapping("/getAll")
