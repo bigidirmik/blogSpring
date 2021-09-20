@@ -55,15 +55,5 @@ public class ImagesController {
 	public DataResult<List<Image>> getByPostId(@RequestParam(name = "postId") int postId) {
 		return this.imageService.getByPostId(postId);
 	}
-	
-//	 @ExceptionHandler(value = {
-//	            ValidationException.class,
-//	            EntityNotFoundException.class,
-//	            EntityExistsException.class,
-//	            NotFoundException.class
-//	    })
-//	    public Result handleException(Exception e, HttpServletRequest httpServletRequest) {
-//	        return new ErrorResult("Exception Message Found: "+e.getMessage());
-//	    }
 
 }

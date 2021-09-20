@@ -46,13 +46,13 @@ public class CategoriesController {
 	}
 
 	@PutMapping("/update")
-	public ResponseEntity<?> update(@RequestParam(name = "id") int id, @RequestParam(name = "categoryName") String categoryName) {
-		return ResponseEntity.ok(this.categoryService.update(id,categoryName));
+	public ResponseEntity<?> update(@RequestParam(name = "categoryId") int categoryId, @RequestParam(name = "categoryName") String categoryName) {
+		return ResponseEntity.ok(this.categoryService.update(categoryId,categoryName));
 	}
 
 	@DeleteMapping("/deleteById")
-	public ResponseEntity<?> deleteById(int id) {
-		return ResponseEntity.ok(this.categoryService.deleteById(id));
+	public ResponseEntity<?> deleteById(int categoryId) {
+		return ResponseEntity.ok(this.categoryService.deleteById(categoryId));
 	}
 	
 	@PutMapping("/setActivity")
@@ -60,17 +60,13 @@ public class CategoriesController {
 		return this.categoryService.setActivity(categoryId, status);
 	}
 
-//	@GetMapping("/getById")
-//	public DataResult<Category> getById(@RequestParam(name = "id") int id) {
-//		return this.categoryService.getById(id);
-//	}
-
 	@GetMapping("/getAll")
 	public DataResult<List<Category>> getAll() {
 		return this.categoryService.getAll();
 	}
 
 	// Custom JPA
+	
 	@GetMapping("/getByCategoryName")
 	public DataResult<List<Category>> getByCategoryName(@RequestParam(name = "categoryName") String categoryName) {
 		return this.categoryService.getByCategoryName(categoryName);
@@ -82,8 +78,8 @@ public class CategoriesController {
 	}
 
 	@GetMapping("/findById")
-	public DataResult<Category> findById(@RequestParam(name = "id") int id) {
-		return this.categoryService.findById(id);
+	public DataResult<Category> findById(@RequestParam(name = "categoryId") int categoryId) {
+		return this.categoryService.findById(categoryId);
 	}
 
 	// Global Ex. Handler (AOP)
