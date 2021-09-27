@@ -24,8 +24,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "paragraphs")
 public class Paragraph {
 	
-
-	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")

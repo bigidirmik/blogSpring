@@ -8,7 +8,7 @@ import blogSpring.entities.concretes.Paragraph;
 
 public interface ParagraphService {
 	
-	Result add(int postId, String subTitle, String content);
+	Result add(int postId, List<Paragraph> paragraphs);
 	
 	//Custom JPA
 	

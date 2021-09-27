@@ -15,6 +15,7 @@ import blogSpring.business.abstracts.ParagraphService;
 import blogSpring.core.utilities.results.DataResult;
 import blogSpring.core.utilities.results.Result;
 import blogSpring.entities.concretes.Paragraph;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 
 @RestController
 @RequestMapping("/api/paragraphs")
@@ -30,8 +31,8 @@ public class ParagraphsController {
 	}
 	
 	@PostMapping("/add")
-	public Result add(@RequestParam(name = "postId") int postId, @RequestParam(name = "subTitle") String subTitle, @RequestParam(name = "content") String content) {
-		return this.paragraphService.add(postId, subTitle, content);
+	public Result add(@RequestParam(name = "postId") int postId, @RequestBody List<Paragraph> paragraphs ) {
+		return this.paragraphService.add(postId, paragraphs );
 	}
 	
 	// Custom JPA

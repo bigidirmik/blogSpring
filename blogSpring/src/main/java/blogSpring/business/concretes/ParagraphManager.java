@@ -30,13 +30,12 @@ public class ParagraphManager implements ParagraphService {
 	}
 
 	@Override
-	public Result add(int postId, String subTitle, String content) {
+	public Result add(int postId, List<Paragraph> paragraphs) {
 		Post post = this.postDao.findById(postId);
-		Paragraph paragraph = new Paragraph();
-		paragraph.setPost(post);
-		paragraph.setSubTitle(subTitle);
-		paragraph.setContent(content);
-		this.paragraphDao.save(paragraph);
+		for (Paragraph paragraph : paragraphs) {
+			paragraph.setPost(post);
+			this.paragraphDao.save(paragraph);
+		}
 		return new SuccessResult(Messages.added);
 	}
 
